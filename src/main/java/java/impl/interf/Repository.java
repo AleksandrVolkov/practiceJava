@@ -71,16 +71,12 @@ public class Repository<T> implements IRepository {
     public void add(int index, Object person) {
         try {
             Object[] newArr = new Object[this.arr.length + 1];
-            newArr[index] = person;
-            System.arraycopy(this.arr, index, newArr, index + 1, this.arr.length - index);
-            for (int i = 0; i < this.arr.length; i++) {
-                if (i < index) {
-                    newArr[i] = this.arr[i];
-                } else {
 
-                    break;
-                }
-            }
+            newArr[index] = person;
+
+            System.arraycopy(this.arr, 0, newArr, 0, index );
+            System.arraycopy(this.arr, index, newArr, index + 1, this.arr.length - index);
+
             this.arr = newArr;
         } catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();

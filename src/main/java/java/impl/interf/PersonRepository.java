@@ -71,7 +71,19 @@ public class PersonRepository implements IPersonRepository {
 
     @Override
     public void add(int index, IPerson person) {
-// запихивает по индексу а тех шо справа двигает вправо
+        try {
+            IPerson[] newArr = new IPerson[this.arr.length + 1];
+
+            newArr[index] = person;
+
+            System.arraycopy(this.arr, 0, newArr, 0, index );
+            System.arraycopy(this.arr, index, newArr, index + 1, this.arr.length - index);
+
+            this.arr = newArr;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+            System.out.println(String.format("Индекс " + index + " выходит за границы массива."));
+        }
     }
 
     @Override
